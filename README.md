@@ -7,6 +7,7 @@ transparency, colour gradients, and fade-in effects, this project offers a more 
 ## modules
 - `termanim.ansi`: The _ANSICodes_ class lists useful ANSI codes for operating on the terminal screen.
 - `termanim.term`: The _TermScreen_ class gives an interface for drawing to the terminal screen, with coloured text.
+The _TermScreenRGB_ class allows the use of 24 bit RGB colour, with transparency effects.
 The _TermThings_ class conveniently creates and modifies drawable text and box objects.
 - `termanim.shm` : A demo animation of a block performing simple harmonic motion on the screen. Run `python3 -m termanim.shm`.
 

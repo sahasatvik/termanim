@@ -54,7 +54,7 @@ class TermScreen:
         self.redraw = set()
 
 
-class TermRGB(TermScreen):
+class TermScreenRGB(TermScreen):
     def __init__(self, size=None, offset=(0, 0), wrap=False, bg=(0, 0, 0)):
         super().__init__(size, offset, wrap, bg)
 
