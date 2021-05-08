@@ -1,8 +1,9 @@
 # termanim
 
 My experiments with animation in the terminal, using ANSI escape sequences.
-Although [anim.py](https://gist.github.com/sahasatvik/624a92563cbaf567c510c80b31326d56) is currently much more advanced, implementing
-transparency, colour gradients, and fade-in effects, this project offers a more structured approach.
+
+This project is meant to be a more structured approach to [anim.py](https://gist.github.com/sahasatvik/624a92563cbaf567c510c80b31326d56),
+which implements effects such as transparency, colour gradients, fade-in, and movement.
 
 ## modules
 - `termanim.ansi`: The _ANSICodes_ class lists useful ANSI codes for operating on the terminal screen.
