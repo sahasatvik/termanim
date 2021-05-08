@@ -119,6 +119,7 @@ class TermThings:
             yield char, i, j, fg, bg, bold, alpha
 
     def gradient_right(thing, fg="", bg="", mix=1.0):
+        thing = list(thing)
         columns = {j for _, _, j, *_ in thing}
         left, right = min(columns), max(columns)
         delta = right - left
@@ -129,6 +130,7 @@ class TermThings:
             yield char, i, j, fg_new, bg_new, bold, alpha
 
     def gradient_down(thing, fg="", bg="", mix=1.0):
+        thing = list(thing)
         rows = {i for _, i, _, *_ in thing}
         top, bottom = min(rows), max(rows)
         delta = bottom - top
@@ -138,7 +140,12 @@ class TermThings:
             bg_new = TermScreenRGB._mix_rgb(bg_top, bg, alpha_mix)
             yield char, i, j, fg_new, bg_new, bold, alpha
 
+    def translate(thing, lines, columns):
+        for (char, i, j, fg, bg, bold, alpha) in thing:
+            yield char, i + lines, j + columns, fg, bg, bold, alpha
+
     def intersection(*things):
+        things = [list(thing) for thing in things]
         cells = {(i, j) for _, i, j, *_ in things[0]}
         for thing in things[1:]:
             cells &= {(i, j) for _, i, j, *_  in thing}
