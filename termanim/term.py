@@ -75,8 +75,8 @@ class TermScreenRGB(TermScreen):
         line = line % self.lines
         column = column % self.columns
         char_, fg_, bg_, bold_ = self.screen[line, column]
-        fg_new = TermRGB._mix_rgb(bg_, fg, alpha)
-        bg_new = TermRGB._mix_rgb(bg_, bg, alpha)
+        fg_new = TermScreenRGB._mix_rgb(bg_, fg, alpha)
+        bg_new = TermScreenRGB._mix_rgb(bg_, bg, alpha)
         self.screen[line, column] = (char, fg_new, bg_new, bold)
         self.redraw.add((line, column))
 
@@ -117,6 +117,26 @@ class TermThings:
     def alpha(thing, alpha):
         for (char, i, j, fg, bg, bold, _) in thing:
             yield char, i, j, fg, bg, bold, alpha
+
+    def gradient_right(thing, fg="", bg="", mix=1.0):
+        columns = {j for _, _, j, *_ in thing}
+        left, right = min(columns), max(columns)
+        delta = right - left
+        for (char, i, j, fg_left, bg_left, bold, alpha) in thing:
+            alpha_mix = (j - left) / delta * mix
+            fg_new = TermScreenRGB._mix_rgb(fg_left, fg, alpha_mix)
+            bg_new = TermScreenRGB._mix_rgb(bg_left, bg, alpha_mix)
+            yield char, i, j, fg_new, bg_new, bold, alpha
+
+    def gradient_down(thing, fg="", bg="", mix=1.0):
+        rows = {i for _, i, _, *_ in thing}
+        top, bottom = min(rows), max(rows)
+        delta = bottom - top
+        for (char, i, j, fg_top, bg_top, bold, alpha) in thing:
+            alpha_mix = (i - top) / delta * mix
+            fg_new = TermScreenRGB._mix_rgb(fg_top, fg, alpha_mix)
+            bg_new = TermScreenRGB._mix_rgb(bg_top, bg, alpha_mix)
+            yield char, i, j, fg_new, bg_new, bold, alpha
 
     def intersection(*things):
         cells = {(i, j) for _, i, j, *_ in things[0]}
