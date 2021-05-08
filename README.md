@@ -12,3 +12,7 @@ The _TermThings_ class conveniently creates and modifies drawable text and box o
 - `termanim.shm` : A demo animation of a block performing simple harmonic motion on the screen. Run `python3 -m termanim.shm`.
 
 ![SHM](https://user-images.githubusercontent.com/16478483/117474574-ad198800-af78-11eb-8c20-667f42fac931.gif)
+
+- `termanim.shmRGB` : A demo animation of simple harmonic motion, this time with RGB colours. Run `python3 -m termanim.shmRGB`.
+
+![SHMRGB](https://user-images.githubusercontent.com/16478483/117535208-52cd0580-b012-11eb-8917-fa655f1be1a3.gif)
