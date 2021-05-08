@@ -35,6 +35,10 @@ def main():
     # Apply a linear gradient from top (pre-existing red/blue) to bottom (green).
     # The mix value of 0.8 indicates that the green is toned down.
     box = TermThings.gradient_down(box, bg=GREEN, mix=0.8)
+    # Apply a radial(ish) gradient on the bottom right corner (yellow).
+    # The mixfunc indicates the strength of the yellow colour, which is maximum at the (1.0, 1.0)
+    # coordinate and fades away with distance.
+    box = TermThings.gradient(box, bg=(255, 255, 0), mixfunc=lambda y, x: 0.2 / ((1 - x)**2 + (1 - y)**2 + 0.2))
     box = list(box)
 
     # Create a "Hello World!" text object centered on the screen.

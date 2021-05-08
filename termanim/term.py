@@ -247,7 +247,7 @@ class TermThings:
         linear gradient from top to bottom. The existing colours are on the top, with the new colours
         fading in towards the bottom. The mix parameter determined the maximum mixing alpha transparency
         of the supplied colours, used while mixing the colours. Lower the mix, the fainter the colour 
-        on the right.
+        on the bottom.
         """
 
         thing = list(thing)
@@ -256,6 +256,32 @@ class TermThings:
         delta = bottom - top
         for (char, i, j, fg_top, bg_top, bold, alpha) in thing:
             alpha_mix = (i - top) / delta * mix
+            fg_new = TermScreenRGB._mix_rgb(fg_top, fg, alpha_mix)
+            bg_new = TermScreenRGB._mix_rgb(bg_top, bg, alpha_mix)
+            yield char, i, j, fg_new, bg_new, bold, alpha
+
+    def gradient(thing, fg="", bg="", mixfunc=lambda y, x: 1.0):
+        """
+        Takes a drawable object and generates an identical one with a foreground and background colour
+        gradient. The nature of the gradient is determined by the mixfunc, which maps coordinates
+        (y, x) to mix strength values (between 0.0 and 1.0) of the new layer. Note that the coordinates
+        y (top to bottom) and x (left to right) are each between 0.0 and 1.0 as well, representing fractions
+        of the height and width. The origin (0, 0) is at the top left of the drawable object.
+
+        For example, a linear gradient from left to right would be represented by a mixfunc of (y, x) -> x.
+        A radial gradient would be of the form (y, x) -> a / ((0.5 - x)**2 + (0.5 - y)**2 + a), where the
+        constant 'a' determines how steeply the new colour drops off from the center.
+        """
+
+        thing = list(thing)
+        rows = {i for _, i, _, *_ in thing}
+        columns = {j for _, _, j, *_ in thing}
+        left, right = min(columns), max(columns)
+        top, bottom = min(rows), max(rows)
+        height, width = bottom - top, right - left
+        for (char, i, j, fg_top, bg_top, bold, alpha) in thing:
+            y, x = (i - top) / height, (j - left) / width
+            alpha_mix = mixfunc(y, x)
             fg_new = TermScreenRGB._mix_rgb(fg_top, fg, alpha_mix)
             bg_new = TermScreenRGB._mix_rgb(bg_top, bg, alpha_mix)
             yield char, i, j, fg_new, bg_new, bold, alpha
