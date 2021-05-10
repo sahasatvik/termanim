@@ -23,12 +23,12 @@ class Animate:
     >>> world = TermThings.text("World", 1, 2, fg=(255, 255, 255), alpha=0.0)
 
     >>> effect_hello = Animate.chain([
-    >>>     Animate.fade(fps, 1.0),
+    >>>     Animate.alpha(fps, 1.0),
     >>>     Animate.forever()
     >>> ])
     >>> effect_world = Animate.chain([
     >>>     Animate.static(fps, 0.5),
-    >>>     Animate.fade(fps, 1.0),
+    >>>     Animate.alpha(fps, 1.0),
     >>>     Animate.forever()
     >>> ])
     >>> frames = zip(effect_hello(hello), effect_world(world))
@@ -82,11 +82,11 @@ class Animate:
                 yield thing
         return animate
 
-    def fade(fps, duration, alpha_init=0.0, alpha_final=1.0, alphafunc=None):
+    def alpha(fps, duration, alpha_init=0.0, alpha_final=1.0, alphafunc=None):
         """
         Creates an effect which fades the transparency between two values.
 
-        The default is to fade from 0.0 -> 1.0 linearly. The alpha_init and alpha_final can
+        The default is to fade in from 0.0 -> 1.0 linearly. The alpha_init and alpha_final can
         be set individually. An alphafunc can be supplied, which maps the fraction of the time
         elapsed (0.0 to 1.0) to an alpha transparency. For example, a fade out can be achieved with
         an alphafunc of the form t -> 1.0 - t.
@@ -147,19 +147,22 @@ if __name__ == '__main__':
     term = TermScreenRGB(size=(8, 32))
 
     hello = TermThings.text("Hello World!", 2, 4, fg=(255, 255, 255))
-    text  = TermThings.text("This is animation", 4, 8, fg=(255, 255, 255))
+    text  = TermThings.text("This is animation", 4, 8, fg=(255, 255, 255), alpha=0.0)
     
     fade_fg = Animate.chain([
-        Animate.fade(fps, 1.0),
-        Animate.fg(fps, 1.5, (255, 255, 255), (255, 128, 0)),
-        Animate.fade(fps, 1.5, alpha_init=1.0, alpha_final=0.0),
+        Animate.alpha(fps, 1.0),
+        Animate.fg(fps, 1.0, (255, 255, 255), (255, 128, 0)),
+        Animate.static(fps, 1.0),
+        Animate.alpha(fps, 1.5, alpha_init=1.0, alpha_final=0.0),
         Animate.static(fps, 1.0),
     ])
     fade_bg = Animate.chain([
-        Animate.fade(fps, 1.0),
+        Animate.static(fps, 0.5),
+        Animate.alpha(fps, 1.0),
         Animate.bg(fps, 1.0, (0, 0, 0), (0, 128, 255)),
-        Animate.fade(fps, 1.5, alpha_init=1.0, alpha_final=0.0),
-        Animate.static(fps, 1.0),
+        Animate.static(fps, 0.5),
+        Animate.alpha(fps, 1.5, alpha_init=1.0, alpha_final=0.0),
+        Animate.static(fps, 0.5),
     ])
 
     frames = zip_longest(fade_fg(hello), fade_bg(text), fillvalue=[])
