@@ -2,7 +2,7 @@
 
 from .term import TermThings, TermScreenRGB
 
-class Animate:
+class Effects:
     """
     A collection of methods for animating drawable objects.
 
@@ -22,14 +22,14 @@ class Animate:
     >>> hello = TermThings.text("Hello", 0, 0, fg=(255, 255, 255))
     >>> world = TermThings.text("World", 1, 2, fg=(255, 255, 255), alpha=0.0)
 
-    >>> effect_hello = Animate.chain([
-    >>>     Animate.alpha(fps, 1.0),
-    >>>     Animate.forever()
+    >>> effect_hello = Effects.chain([
+    >>>     Effects.alpha(fps, 1.0),
+    >>>     Effects.forever()
     >>> ])
-    >>> effect_world = Animate.chain([
-    >>>     Animate.static(fps, 0.5),
-    >>>     Animate.alpha(fps, 1.0),
-    >>>     Animate.forever()
+    >>> effect_world = Effects.chain([
+    >>>     Effects.static(fps, 0.5),
+    >>>     Effects.alpha(fps, 1.0),
+    >>>     Effects.forever()
     >>> ])
     >>> frames = zip(effect_hello(hello), effect_world(world))
 
@@ -149,20 +149,20 @@ if __name__ == '__main__':
     hello = TermThings.text("Hello World!", 2, 4, fg=(255, 255, 255))
     text  = TermThings.text("This is animation", 4, 8, fg=(255, 255, 255), alpha=0.0)
     
-    fade_fg = Animate.chain([
-        Animate.alpha(fps, 1.0),
-        Animate.fg(fps, 1.0, (255, 255, 255), (255, 128, 0)),
-        Animate.static(fps, 1.0),
-        Animate.alpha(fps, 1.5, alpha_init=1.0, alpha_final=0.0),
-        Animate.static(fps, 1.0),
+    fade_fg = Effects.chain([
+        Effects.alpha(fps, 1.0),
+        Effects.fg(fps, 1.0, (255, 255, 255), (255, 128, 0)),
+        Effects.static(fps, 1.0),
+        Effects.alpha(fps, 1.5, alpha_init=1.0, alpha_final=0.0),
+        Effects.static(fps, 1.0),
     ])
-    fade_bg = Animate.chain([
-        Animate.static(fps, 0.5),
-        Animate.alpha(fps, 1.0),
-        Animate.bg(fps, 1.0, (0, 0, 0), (0, 128, 255)),
-        Animate.static(fps, 0.5),
-        Animate.alpha(fps, 1.5, alpha_init=1.0, alpha_final=0.0),
-        Animate.static(fps, 0.5),
+    fade_bg = Effects.chain([
+        Effects.static(fps, 0.5),
+        Effects.alpha(fps, 1.0),
+        Effects.bg(fps, 1.0, (0, 0, 0), (0, 128, 255)),
+        Effects.static(fps, 0.5),
+        Effects.alpha(fps, 1.5, alpha_init=1.0, alpha_final=0.0),
+        Effects.static(fps, 0.5),
     ])
 
     frames = zip_longest(fade_fg(hello), fade_bg(text), fillvalue=[])
