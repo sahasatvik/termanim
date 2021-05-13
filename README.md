@@ -24,4 +24,4 @@ The _TermThings_ class conveniently creates and modifies drawable text and box o
 - `termanim.blocks` : A demo animation of colourful moving blocks. Run `python3 -m termanim.blocks`, or `python3 -m termanim.blocks -h`
 for more options.
 
-![BLOCKS](https://user-images.githubusercontent.com/16478483/118092698-102c7400-b3ea-11eb-86d6-a126d73e3563.png)
+![BLOCKS](https://user-images.githubusercontent.com/16478483/118110785-78865000-b400-11eb-9d7b-6b2b80cf7889.png)
