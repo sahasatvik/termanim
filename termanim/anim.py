@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from itertools import cycle, repeat
 from .term import TermThings, TermScreenRGB
 
 class Effects:
@@ -59,6 +60,17 @@ class Effects:
                     yield thing
         return animate
 
+    def cycle(effect):
+        """
+        Creates a looped version of a supplied effect. Assumes that the supplied effect produces
+        finitely many frames.
+        """
+
+        def animate(thing):
+            frames = (list(frame) for frame in effect(thing))
+            yield from cycle(frames)
+        return animate
+
     def static(fps, duration):
         """
         Creates an effect which produces static, identical frames, useful for padding.
@@ -67,8 +79,7 @@ class Effects:
         frames = int(duration * fps)
         def animate(thing):
             thing = list(thing)
-            for i in range(frames):
-                yield thing
+            yield from repeat(thing, frames)
         return animate
     
     def forever():
@@ -78,8 +89,7 @@ class Effects:
 
         def animate(thing):
             thing = list(thing)
-            while True:
-                yield thing
+            yield from repeat(thing)
         return animate
 
     def alpha(fps, duration, alpha_init=0.0, alpha_final=1.0, alphafunc=None):

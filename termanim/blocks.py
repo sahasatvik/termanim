@@ -40,12 +40,7 @@ def fade_in_move(fps, alpha, delay, speed):
 def pulse(fps, period, alpha_min=0.0, alpha_max=1.0):
     alphafunc = lambda t: alpha_min + (alpha_max - alpha_min) * (1 + cos(2 * pi * t)) * 0.5
     fade = Effects.alpha(fps, period, alphafunc=alphafunc)
-    def animate(thing):
-        thing = list(thing)
-        while True:
-            for frame in fade(thing):
-                yield frame
-    return animate
+    return Effects.cycle(fade)
 
 def main(fps, fg, bg, n_boxes, box_alpha, no_grad):
     term = TermScreenRGB(wrap=True, bg=bg)
