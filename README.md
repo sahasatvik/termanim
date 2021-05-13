@@ -12,6 +12,7 @@ The _TermScreenRGB_ class allows the use of 24 bit RGB colour, with transparency
 The _TermThings_ class conveniently creates and modifies drawable text and box objects.
 - `termanim.anim`: The _Effects_ class creates animation effects, which act on drawable objects and generate animation frames.
 
+## demos
 - `termanim.shm` : A demo animation of a block performing simple harmonic motion on the screen. Run `python3 -m termanim.shm`.
 
 ![SHM](https://user-images.githubusercontent.com/16478483/117474574-ad198800-af78-11eb-8c20-667f42fac931.gif)
@@ -19,3 +20,8 @@ The _TermThings_ class conveniently creates and modifies drawable text and box o
 - `termanim.shmRGB` : A demo animation of simple harmonic motion, this time with RGB colours. Run `python3 -m termanim.shmRGB`.
 
 ![SHMRGB](https://user-images.githubusercontent.com/16478483/117535208-52cd0580-b012-11eb-8917-fa655f1be1a3.gif)
+
+- `termanim.blocks` : A demo animation of colourful moving blocks. Run `python3 -m termanim.blocks`, or `python3 -m termanim.blocks -h`
+for more options.
+
+![BLOCKS](https://user-images.githubusercontent.com/16478483/118092698-102c7400-b3ea-11eb-86d6-a126d73e3563.png)
