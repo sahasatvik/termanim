@@ -8,7 +8,7 @@ class ANSICodes:
     # Basic control characters.
     RESET = "\033[0m"
     CLEAR = "\033[2J"
-    HOME  = "\022[H"
+    HOME  = "\033[H"
     GOTO = "\033[{};{}H"                # lines, columns
     BOLD = "\033[1m"
     UNBOLD = "\033[2m"
